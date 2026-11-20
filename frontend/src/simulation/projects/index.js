@@ -1,0 +1,20 @@
+import a from './ultrasonicDistanceMeter.js';
+import b from './parkingDistanceAlert.js';
+import c from './automaticNightLamp.js';
+import d from './irObjectCounter.js';
+import e from './doorEntryAlert.js';
+import f from './temperatureMonitor.js';
+import g from './humidityMonitor.js';
+import h from './temperatureWarningAlarm.js';
+import i from './soilMoistureLcd.js';
+import j from './digitalPotentiometerDemo.js';
+import k from './pushButtonCounter.js';
+import l from './buzzerMelodyPatterns.js';
+import m from './trafficLightController.js';
+import n from './pedestrianCrossingSignal.js';
+import o from './lcdMenuSystem.js';
+import p from './electronicReactionTimer.js';
+import q from './digitalDice.js';
+
+export const PROJECTS = [a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q];
+export const getProject = (id) => PROJECTS.find((x) => x.id === id);
