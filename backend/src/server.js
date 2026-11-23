@@ -49,7 +49,11 @@ async function main() {
 
   fs.mkdirSync(settings.uploadDir, { recursive: true });
 
-  const server = createApp().listen(settings.port, () => console.log(`IoT Explorer API: http://localhost:${settings.port}  (health: /api/health)`));
+ const server = createApp().listen(
+  settings.port,
+  '0.0.0.0',
+  () => console.log(`IoT Explorer API running on port ${settings.port}`)
+);
   if (!settings.judgePin) console.warn('JUDGE_PIN is not set: judge/admin endpoints are disabled.');
 
   const stop = () => server.close(() => mongoose.disconnect().then(() => process.exit(0)));
