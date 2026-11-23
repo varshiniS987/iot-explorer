@@ -40,7 +40,6 @@ export default function ComponentInspector({ id, onClose }: { id: ComponentId; o
               </CanvasErrorBoundary>
               <p className="pointer-events-none absolute bottom-3 left-3 rounded-lg bg-black/50 px-3 py-1.5 text-xs text-slate-300">Drag to rotate · scroll to zoom</p>
             </div>
-            <p className="px-4 pb-4 text-sm text-slate-300">{comp.summary}</p>
           </section>
           <section className="min-w-0 p-3 sm:p-4">
             <LessonPanel id={id} showLink={false} />

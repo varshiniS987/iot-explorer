@@ -1,6 +1,7 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { BookOpen, CheckCircle2, Expand, FlaskConical, Box } from 'lucide-react';
+import { Expand, Box } from 'lucide-react';
 import { KIND_LABEL, getComponent } from '../../data/kitComponents';
 import { getLesson } from '../../data/lessons';
 import { useAppStore } from '../../store/useAppStore';
@@ -11,18 +12,17 @@ const H = ({ children }: { children: string }) => <h4 className="mb-1 mt-4 text-
 export default function LessonPanel({ id, onInspect, showLink = false }: { id: ComponentId; onInspect?: () => void; showLink?: boolean }) {
   const comp = getComponent(id)!;
   const lesson = getLesson(id)!;
-  const done = useAppStore((s) => s.lessons.includes(id));
   const complete = useAppStore((s) => s.completeLesson);
+  // Viewing a component page marks it as completed automatically (saved in the browser and, when logged in, in the database).
+  useEffect(() => { complete(id); }, [id, complete]);
   return (
     <motion.article key={id} className="glass p-5" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
       <p className="text-xs font-semibold uppercase tracking-wide text-violet-300">{KIND_LABEL[comp.kind]}</p>
       <h2 className="text-2xl font-extrabold">{comp.name}</h2>
-      <div className="mt-3 flex flex-wrap gap-2">
-        <Link to={`/lab?c=${id}`} className="btn-primary"><FlaskConical size={15} />Try in Simulator</Link>
-        {onInspect && <button className="btn-ghost" onClick={onInspect}><Expand size={15} />Inspect in 3D</button>}
+      {(onInspect || showLink) && <div className="mt-3 flex flex-wrap gap-2">
+        {onInspect && <button className="btn-primary" onClick={onInspect}><Expand size={15} />Inspect in 3D</button>}
         {showLink && <Link to={`/explore?c=${id}`} className="btn-ghost"><Box size={15} />View on 3D kit</Link>}
-        <button className="btn-ghost" onClick={() => complete(id)} disabled={done}>{done ? <><CheckCircle2 size={15} className="text-emerald-300" />Lesson completed</> : <><BookOpen size={15} />Mark lesson complete</>}</button>
-      </div>
+      </div>}
       <H>What it is</H><p className="text-sm text-slate-200">{lesson.what}</p>
       <H>What it is used for</H><p className="text-sm text-slate-200">{lesson.usedFor}</p>
       <H>How it works</H><p className="text-sm text-slate-200">{lesson.how}</p>

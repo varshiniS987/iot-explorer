@@ -4,12 +4,10 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Box, Cpu, Gamepad2, Play } from 'lucide-react';
 import type { CSSProperties } from 'react';
 import Tilt from '../components/ui/Tilt';
-import ProgressRing from '../components/ui/ProgressRing';
 import { GAME_PARTS } from '../data/gameParts';
 import { LEARNING_TOPICS } from '../data/learningTopics';
 import { PROJECTS } from '../simulation/projects/index.js';
 import { KIT_COMPONENTS } from '../data/kitComponents';
-import { useProgress } from '../hooks/useProgress';
 
 // three.js is large, so the 3D hero loads after the first paint.
 const HeroScene = lazy(() => import('../components/three/HeroScene'));
@@ -30,7 +28,6 @@ const STATS = [
 ];
 
 export default function Home() {
-  const { pct, level, title, avatar, xp, next } = useProgress();
   const strip = [...GAME_PARTS, ...GAME_PARTS];
 
   return (
@@ -39,7 +36,7 @@ export default function Home() {
         <motion.div className="hero7-copy" initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
           <span className="pill7">Made for school students</span>
           <h1>Embedded system and IoT pocket lab</h1>
-          <p>Explore real components in 3D, wire up circuits, play the Part Match game and earn badges. You don't need any hardware.</p>
+          <p>Explore real components in 3D, wire up circuits, play the Part Match game and track your progress. You don't need any hardware.</p>
           <div className="hero7-actions">
             <Link to="/academy" className="btn7 btn7-sun"><Play size={18} fill="currentColor" /> Start learning</Link>
             <Link to="/game" className="btn7 btn7-glass"><Gamepad2 size={18} /> Play Part Match</Link>
@@ -83,35 +80,6 @@ export default function Home() {
                 <b>{p.name}</b><small>{p.clue}</small>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="sec7">
-        <div className="split7">
-          <div className="panel7 progress-panel">
-            <ProgressRing pct={pct} size={150}><b>{pct}%</b><small>done</small></ProgressRing>
-            <div>
-              <h3>{avatar} Level {level}: {title}</h3>
-              <p>{xp} XP earned so far.</p>
-              {next && <p className="next-line">Next step: <Link to={next.to}>{next.cta}</Link></p>}
-              <Link to="/dashboard" className="btn7 btn7-sun sm">Open my dashboard</Link>
-            </div>
-          </div>
-          <div className="panel7 game-panel">
-            <div className="mini-flips" aria-hidden="true">
-              {['dht11', 'relay', 'servo'].map((f, i) => (
-                <div className="mini-flip" key={f} style={{ animationDelay: `${i * 0.9}s` }}>
-                  <div className="mini-face mf-front">?</div>
-                  <div className="mini-face mf-back"><img src={`/components/${f}.png`} alt="" /></div>
-                </div>
-              ))}
-            </div>
-            <div>
-              <h3>Part Match 3D</h3>
-              <p>Flip the cards, find each part and its job. Win three stars on every level to unlock the Memory Master badge.</p>
-              <Link to="/game" className="btn7 btn7-coral sm"><Gamepad2 size={16} /> Play now</Link>
-            </div>
           </div>
         </div>
       </section>

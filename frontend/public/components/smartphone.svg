@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320" role="img" aria-label="Smartphone with a Bluetooth control app">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6b7684"/><stop offset=".5" stop-color="#2b323c"/><stop offset="1" stop-color="#171b21"/></linearGradient>
+    <linearGradient id="side" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#14181d"/><stop offset="1" stop-color="#3a4452"/></linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1d3c8f"/><stop offset="1" stop-color="#0b1b4a"/></linearGradient>
+    <radialGradient id="btn" cx=".4" cy=".3" r=".9"><stop offset="0" stop-color="#7cc4ff"/><stop offset="1" stop-color="#1c63d6"/></radialGradient>
+    <linearGradient id="on" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#37d67a"/><stop offset="1" stop-color="#1ea85a"/></linearGradient>
+    <filter id="sh" x="-30%" y="-10%" width="160%" height="130%"><feDropShadow dx="6" dy="8" stdDeviation="7" flood-color="#000" flood-opacity=".5"/></filter>
+  </defs>
+  <g fill="none" stroke="#7fe3ff" stroke-width="3.5" stroke-linecap="round" opacity=".7"><path d="M286 108q22 12 0 36"/><path d="M300 96q36 24 0 60"/><path d="M114 108q-22 12 0 36"/><path d="M100 96q-36 24 0 60"/></g>
+  <g filter="url(#sh)">
+    <rect x="134" y="14" width="142" height="292" rx="26" fill="url(#side)"/>
+    <rect x="128" y="10" width="142" height="292" rx="26" fill="url(#body)"/>
+    <rect x="136" y="18" width="126" height="276" rx="19" fill="#07090d"/>
+    <rect x="140" y="22" width="118" height="268" rx="16" fill="url(#screen)"/>
+    <rect x="176" y="27" width="46" height="8" rx="4" fill="#07090d"/><circle cx="214" cy="31" r="2.4" fill="#2f3b52"/>
+    <text x="199" y="62" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="12" fill="#dbe8ff">Bluetooth Control</text>
+    <circle cx="199" cy="116" r="36" fill="url(#btn)"/><circle cx="199" cy="116" r="36" fill="none" stroke="#bfe3ff" stroke-width="2" opacity=".6"/>
+    <path d="M190 104l18 12-9 8v-32l9 8-18 12" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" transform="translate(0 1)"/>
+    <g font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#e8f1ff">
+      <rect x="152" y="176" width="94" height="30" rx="10" fill="#ffffff" opacity=".12"/><text x="162" y="195">LED</text><rect x="212" y="183" width="26" height="16" rx="8" fill="url(#on)"/><circle cx="230" cy="191" r="6" fill="#fff"/>
+      <rect x="152" y="214" width="94" height="30" rx="10" fill="#ffffff" opacity=".12"/><text x="162" y="233">Fan</text><rect x="212" y="221" width="26" height="16" rx="8" fill="#5b6f9b"/><circle cx="220" cy="229" r="6" fill="#fff"/>
+      <rect x="152" y="252" width="94" height="28" rx="10" fill="#ffffff" opacity=".12"/><text x="162" y="270">Temp 28°C</text>
+    </g>
+    <path d="M146 30q40-8 80 4l-60 120-30 60z" fill="#fff" opacity=".05"/>
+  </g>
+</svg>

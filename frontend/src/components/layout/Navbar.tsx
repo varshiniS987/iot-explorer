@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
-import { BookOpen, Box, Cpu, Gamepad2, HelpCircle, Home, LayoutDashboard, Menu, Trophy, X } from 'lucide-react';
-import { useProgress } from '../../hooks/useProgress';
+import { BookOpen, Box, Cpu, Gamepad2, HelpCircle, Home, LayoutDashboard, Menu, Trophy, User, X } from 'lucide-react';
 
 const MAIN = [
   { to: '/', label: 'Home', icon: Home },
@@ -18,7 +17,6 @@ const link = ({ isActive }: { isActive: boolean }) => `nav7-link${isActive ? ' o
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const loc = useLocation();
-  const { level, xp, title, avatar } = useProgress();
 
   useEffect(() => { setOpen(false); }, [loc.pathname]);
 
@@ -34,10 +32,9 @@ export default function Navbar() {
           {MAIN.map(({ to, label, icon: Icon }) => <NavLink key={to} to={to} end={to === '/'} className={link}><Icon size={16} />{label}</NavLink>)}
         </nav>
 
-        <Link to="/dashboard" className="nav7-xp" title="Open my dashboard">
-          <span className="nav7-avatar">{avatar}</span>
-          <span><b>Level {level} · {title}</b><small>{xp} XP</small></span>
-        </Link>
+        <div className="nav7-right">
+          <Link to="/profile" className="nav7-profile" aria-label="My profile" title="My profile"><User size={20} /></Link>
+        </div>
         <button className="nav7-burger" aria-label="Menu" aria-expanded={open} onClick={() => setOpen((o) => !o)}>{open ? <X size={22} /> : <Menu size={22} />}</button>
       </div>
 

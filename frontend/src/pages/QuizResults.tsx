@@ -3,11 +3,14 @@ import { CheckCircle2, XCircle, RotateCcw } from 'lucide-react';
 import { QUIZ } from '../data/quizQuestions';
 import { QUIZ_LEVELS } from '../data/quizLevels';
 import { useAppStore } from '../store/useAppStore';
+import { useAutoCertificate } from '../hooks/useAutoCertificate';
+import { PASS_PERCENT } from '../data/quizLevels';
 
 export default function QuizResults() {
   const quiz = useAppStore((s) => s.quiz);
   const feedback = useAppStore((s) => s.feedback);
   const quizLevel = useAppStore((s) => s.quizLevel);
+  const cert = useAutoCertificate();
   const review = QUIZ_LEVELS[quizLevel].indices.map(index => ({ ...QUIZ[index], originalIndex: index }));
   if (!quiz) return (
     <div className="mx-auto max-w-xl px-4 py-16 text-center"><div className="glass p-8"><h1 className="mb-2 text-2xl font-extrabold">No quiz result yet</h1><p className="mb-4 text-slate-300">Take the quiz to see your score and review.</p><Link className="btn-primary" to="/quiz">Start quiz</Link></div></div>
@@ -17,12 +20,19 @@ export default function QuizResults() {
       <div className="glass mb-5 p-6 text-center">
         <p className="text-sm text-slate-400">{QUIZ_LEVELS[quizLevel].title} quiz · Your score</p>
         <p className="text-5xl font-extrabold">{quiz.score}<span className="text-2xl text-slate-400"> / {quiz.total}</span></p>
-        <p className={`mt-1 font-bold ${quiz.passed ? 'text-emerald-300' : 'text-red-300'}`}>{quiz.passed ? 'Passed. Well done!' : 'Not passed yet. You need 60 to pass.'}</p>
+        <p className={`mt-1 font-bold ${quiz.passed ? 'text-emerald-300' : 'text-red-300'}`}>{quiz.passed ? 'Passed. Well done!' : `Not passed yet. You need ${PASS_PERCENT}% to pass.`}</p>
         <div className="mt-4 flex flex-wrap justify-center gap-2">
           <Link to="/quiz" className="btn-ghost"><RotateCcw size={15} />Retake quiz</Link>
           {!feedback && <Link to="/feedback" className="btn-primary">Give feedback</Link>}
-          {quiz.passed && feedback && <Link to="/certificate" className="btn-primary">Get certificate</Link>}
+          {quiz.passed && <Link to="/certificate" className="btn-primary">View certificate</Link>}
         </div>
+        {quiz.passed && (
+          <div className="mx-auto mt-4 max-w-md rounded-xl border border-emerald-300/30 bg-emerald-400/10 p-3 text-sm text-emerald-100" role="status">
+            {cert.profileOk
+              ? <>🎓 Your certificate was generated automatically{cert.certificateId ? <> (ID <b>{cert.certificateId}</b>)</> : null}.{cert.status === 'error' && <> It could not be created, <button className="underline" onClick={() => void cert.regenerate()}>try again</button>.</>}</>
+              : <>🎓 You passed! Add your name, school and class in your <Link to="/profile" className="font-bold underline">Profile</Link> and your certificate is created automatically.</>}
+          </div>
+        )}
       </div>
       <h2 className="mb-2 text-lg font-bold">Review</h2>
       <div className="space-y-3">

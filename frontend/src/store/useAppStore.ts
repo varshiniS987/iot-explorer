@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware';
 import type { ComponentId, FeedbackData, QuizResult } from '../types';
 import { PROJECTS } from '../simulation/projects/index.js';
 import { clearProgress } from '../simulation/utils/progressStorage.js';
-
+import { makeCertificateId } from '../components/certificate/generateCertificate';
 const VALID_SIM_IDS = new Set(PROJECTS.map((p) => p.id));
 
 export interface TopicResult { score: number; total: number; passed: boolean; date: string }
@@ -54,6 +54,8 @@ interface AppState {
   setQuiz: (r: QuizResult | null) => void;
   setFeedback: (f: FeedbackData) => void;
   setCertificate: (id: string) => void;
+  /** Returns the certificate id, creating it the first time a quiz is passed. */
+  issueCertificate: () => string;
   markCertificateDownloaded: () => void;
   resetAll: () => void;
 }
@@ -72,7 +74,7 @@ const initial = {
 
 export const useAppStore = create<AppState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       ...initial,
       setStudent: (p) => set(p),
       markExplored: (id) => set((s) => ({ explored: add(s.explored, id) })),
@@ -82,6 +84,7 @@ export const useAppStore = create<AppState>()(
       setQuiz: (quiz) => set({ quiz }),
       setFeedback: (feedback) => set({ feedback }),
       setCertificate: (certificateId) => set({ certificateId }),
+      issueCertificate: () => { const cur = get().certificateId; if (cur) return cur; const id = makeCertificateId(); set({ certificateId: id }); return id; },
       markCertificateDownloaded: () => set({ certificateDownloaded: true }),
       setGameResult: (level, score, stars) => set((s) => {
         const old = s.gameBest[level];

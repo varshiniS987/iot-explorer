@@ -12,7 +12,7 @@ import Certificate from './pages/Certificate';
 import Dashboard from './pages/Dashboard';
 import Academy from './pages/Academy';
 import Events from './pages/Events';
-import EventRegister from './pages/EventRegister';
+import Profile from './pages/Profile';
 import CircuitGame from './pages/CircuitGame';
 import PartMatch from './pages/PartMatch';
 import Backdrop3D from './components/ui/Backdrop3D';
@@ -38,12 +38,12 @@ export default function App() {
           <Route path="/results" element={<QuizResults />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/certificate" element={<Certificate />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/academy" element={<Academy />} />
           <Route path="/academy/:id" element={<TopicCourse />} />
           <Route path="/simulator/*" element={<SimulationLab />} />
           <Route path="/events" element={<Events />} />
-          <Route path="/events/register" element={<EventRegister />} />
           <Route path="/circuit-game" element={<CircuitGame />} />
           <Route path="/game" element={<PartMatch />} />
           <Route path="*" element={<Home />} />
